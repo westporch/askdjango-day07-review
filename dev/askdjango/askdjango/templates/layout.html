@@ -22,6 +22,14 @@ static  태그는 빌트인 태그가 아니므로 상단에 load static을 추�
 		{% block extra_head %}{% endblock %}
     </head>
     <body>
+        {% if not user.is_authenticated %}
+            <a href="{% url 'signup' %}">회원가입</a>
+            <a href="{% url 'login' %}">로그인</a>
+        {% else %}
+            <a href="{% url 'profile' %}">{{ user }}'s 프로필</a>
+            <a href="#">로그아웃</a>
+        {% endif %}
+
         <h1>AskDjango</h1>
 
         {% block logo %}
