@@ -24,7 +24,9 @@ static  태그는 빌트인 태그가 아니므로 상단에 load static을 추�
     <body>
         <h1>AskDjango</h1>
 
-        <img src="{% static "blog/logo.png" %}" style="width: 100px;" />
+        {% block logo %}
+            <img src="{% static "python3-logo.png" style="width: 100px;" /> %}"
+        {% endblock %}
 
 		<hr/>
         {% block content %} <!-- 자식 템플릿이 들어올 수 있는 공간을 block으로 정의한다. -->
