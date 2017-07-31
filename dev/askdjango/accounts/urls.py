@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.conf.urls import url
 from django.contrib.auth import views as auth_views
 from . import views
@@ -12,6 +13,8 @@ next를 이용하면 로그인 후 이동할 페이지를 지정할 수 있다.
 urlpatterns = [
     url(r'^login/$', auth_views.login, name='login',
         kwargs={'template_name': 'accounts/login.html'}), # 예) http://192.168.0.7:8080/accounts/login/
+    url(r'^logout/$', auth_views.logout, name='logout',
+        kwargs={'next_page': settings.LOGIN_URL}),
     url(r'^profile/$', views.profile, name='profile'),
     url(r'^signup/$', views.signup, name='signup'),
 ]
