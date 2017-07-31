@@ -17,11 +17,19 @@ Including another URLconf
 from django.conf import settings
 from django.conf.urls import include, url
 from django.contrib import admin
+from django.conf.urls.static import static
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
 	url(r'^weblog/', include('blog.urls', namespace='blog')), # url(r'^weblog/', include('blog.urls'), namespace='blog'),으로 작성하면 안된다. include 안에 namespace를 작성해야 한다. 
 ]
+
+'''
+스태틱 파일은 장고에서 서빙 기능을 지원하지만
+미디어 파일은 장고에서 기본적으로 서빙 기능을 지원하지 않는다.
+(단, 디버그 옵션이 꺼져있으면 static 함수는 빈 리스트를 반환한다)
+'''
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 
 '''django-debug-toolbar를 사용하기 위한 설정
