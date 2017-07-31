@@ -12,4 +12,5 @@ next를 이용하면 로그인 후 이동할 페이지를 지정할 수 있다.
 urlpatterns = [
     url(r'^login/$', auth_views.login, name='login'), # 예) http://192.168.0.7:8080/accounts/login/
     url(r'^profile/$', views.profile, name='profile'),
+    url(r'^signup/$', views.signup, name='signup'),
 ]
