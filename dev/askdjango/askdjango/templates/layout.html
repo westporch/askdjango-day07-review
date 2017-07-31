@@ -43,7 +43,7 @@ static  태그는 빌트인 태그가 아니므로 상단에 load static을 추�
                             <li><a href="{% url 'login' %}">로그인</a></li>
                         {% else %}
                             <li><a href="{% url 'profile' %}">{{ user }}'s 프로필</a></li>
-                            <li><a href="{% url 'logout' %}">로그아웃</a></li>
+                            <li><a href="{% url 'logout' %}?next={{ request.path }}">로그아웃</a></li> <!-- request.path는 현재 페이지를 지정한다. -->
                          {% endif %}
                     </ul>
                 </div> <!--/.nav-collapse -->
