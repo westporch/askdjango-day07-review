@@ -9,12 +9,12 @@
 	<h1>{{ post.title }}</h1>
 
     {% if post.photo %}
-        <img src="{{ post.photo.url }}" />
+        <img src="{{ post.photo.url }}" class="img-responsive center-block" />
     {% endif %}
 
 	{{ post.content|linebreaks }}
 	<hr/>
-	<a href="{% url "blog:post_list" %}">목록으로</a> <!-- blog 앱의 뷰(post_list)를 지정해서 URL을 자동으로 계산한다. (Django를 유연하게 사용할 수 있음) -->
-    <a href="{% url "blog:post_edit" post.pk %}">수정하기</a>
-    <a href="{% url "blog:post_delete" post.pk %}">삭제하기</a>
+	<a href="{% url "blog:post_list" %}" class="btn btn-primary">목록으로</a> <!-- blog 앱의 뷰(post_list)를 지정해서 URL을 자동으로 계산한다. (Django를 유연하게 사용할 수 있음) -->
+    <a href="{% url "blog:post_edit" post.pk %}" class="btn btn-info">수정하기</a>
+    <a href="{% url "blog:post_delete" post.pk %}" class="btn btn-danger">삭제하기</a>
 {% endblock %}
