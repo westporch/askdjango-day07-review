@@ -15,6 +15,7 @@ render를 import하지 않고 3~4줄로 작성하는 것은 오래된 코드 방
 간단히 from django.shortcuts import render 1줄로 작성한다.
 '''
 
+
 def post_list(request):
 	#print(request.META['REMOTE_ADDR']) # 웹으로 django 접속시 remote host의 ip를 runserver 콘솔에 출력한다.
 	qs = Post.objects.all()	# 아직 DB에서 데이터를 가져오지 않았음
@@ -37,6 +38,7 @@ def post_list(request):
 		#'date_list': date_list,
 	})
 
+
 def post_detail(request, pk):
 	# pk = "100"	# 숫자가 아닌 문자열 100이다.
 	post = Post.objects.get(pk=pk) # post = Post.objects.get(pk=int(pk))처럼 굳이 문자열을 정수로 변환하지 않아도 된다.
@@ -44,39 +46,41 @@ def post_detail(request, pk):
 		'post': post,
 	})
 
+
 def post_new(request):
-    if request.method == 'POST':
-        '''
+	if request.method == 'POST':
+		'''
         뷰 함수에서는 무조건 POST, GET처럼 소문자가 아닌 대문자로 입력해야 한다.
         html form 태그에서는 method="post" 처럼 post를 소문자로 적어도 된다.
-        POST인지 GET인지는 runserver 콘솔에서 확인할 수 있다.
+		POST인지 GET인지는 runserver 콘솔에서 확인할 수 있다.
         Django에서는 POST 방식을 맨 앞에두고 GET 방식은 맨 뒤에 놓는다. 이것이 Django 스타일이다.
         POST 방식이 주 코드이기 때문에 그렇다.
         '''
-        # request.GET   # GET인자
+		# request.GET   # GET인자
         # request.POST  # POST인자, 파일 제외
         # request.FILES # POST인자, 파일만
 
-        form = PostForm(request.POST)
-        if form.is_valid(): # 검증을 수행한다.
+		form = PostForm(request.POST, request.FILES)
+		if form.is_valid(): # 검증을 수행한다.
             # form.cleaned_data # {'title': ??, 'author': ??} # cleaned_data에는 검증을 통과한 값들을 dict 타입으로 제공함.
-            post = form.save()  # DB에 값을 저장한다, 저장한 모델의 인스턴스를 리턴
-            #return redirect('blog:post_detail', post.id)    # redirect는 뷰에서 이동처리를 할 때 유용하다. 일반적으로 글을 작성하면 작성한 글을 보여준다.
-            return redirect(post) # post.get_absolute_url()로 이동
+			post = form.save()  # DB에 값을 저장한다, 저장한 모델의 인스턴스를 리턴
+			#return redirect('blog:post_detail', post.id)    # redirect는 뷰에서 이동처리를 할 때 유용하다. 일반적으로 글을 작성하면 작성한 글을 보여준다.
+			return redirect(post) # post.get_absolute_url()로 이동
         #else:
         #   form.errors     # 오류 정보를 다 가지고 있다.
-    else:
-        #if request.method == 'GET':
-        form = PostForm()
-    return render(request, 'blog/post_form.html', {
+	else:
+		#if request.method == 'GET':
+		form = PostForm()
+	return render(request, 'blog/post_form.html', {
             'form': form,
     })
+
 
 def post_edit(request, pk): # pk인자는 urls.py에서 받아온다, post_edit 함수는 post_new 함수와 유사하다.
     post = Post.objects.get(pk=pk) # 작성했던 글 대상을 불러온다, get은 1개의 대상만 가져온다.
 
     if request.method == 'POST':
-        form = PostForm(request.POST, instance=post)
+        form = PostForm(request.POST, request.FILES, instance=post)
         if form.is_valid(): # 유저가 입력폼에 내용을 채우고 전송(submit)하면, 해당 URL로 POST 요청으로 전달하여 유효성 검증을 수행한다.
             post = form.save() # DB에 값을 저장한다.
             return redirect('blog:post_detail', post.id) # 수정한 글의 내용을 보여준다.
@@ -87,6 +91,7 @@ def post_edit(request, pk): # pk인자는 urls.py에서 받아온다, post_edit 
         'form': form,
     })
 
+
 def post_delete(request, pk):
     post = Post.objects.get(pk=pk) # 작성했던 글 대상을 불러온다, get은 1개의 대상만 가져온다.
     if request.method == 'POST':
@@ -95,6 +100,7 @@ def post_delete(request, pk):
     return render(request, 'blog/post_confirm_delete.html', {
         'post': post,
     })
+
 
 def post_list1(request):
 	'FBV: 직접 문자열로 HTML형식 응답하기'
@@ -105,14 +111,16 @@ def post_list1(request):
 		<p> {name} </p>
 		<p>여러분의 파이썬&장고 페이스메이커가 되겠습니다.</p>'''.format(name=name))
 
+
 def post_list2(request):
-	'FBV: 템플릿을 통해 HTML형식 응답하기'
+	#'FBV: 템플릿을 통해 HTML형식 응답하기'
 
 	print(request.META['REMOTE_ADDR']) # 웹으로 django 접속시 remote host의 ip를 runserver 콘솔에 출력한다.
 
 	name = '공유'
 	response = render(request, 'blog/post_list.html', {'name': name})	# 좌 측의 name을 우측의 name으로 넘긴다.
 	return response
+
 
 def post_list3(request):
 	'FBV: JSON 형식 응답하기'
@@ -121,6 +129,7 @@ def post_list3(request):
 		'message': '안녕, 파이썬&장고',
 		'items': ['파이썬', '장고', 'Celery', 'Azure', 'AWS'],
 	}, json_dumps_params={'ensure_ascii': False})
+
 
 def excel_download(request):
 	'FBV: 엑셀 다운로드 응답하기'
@@ -133,6 +142,7 @@ def excel_download(request):
 		# 필요한 응답헤더 세팅
 		response['Content-Disposition'] = 'attachment; filename="{}"'.format(filename)
 		return response
+
 
 #def mysum(request, x):
 #	''' 인자: 정수 1개
@@ -150,6 +160,7 @@ def excel_download(request):
 #	'''
 #	return HttpResponse(int(x) + int(y))
 
+
 def mysum(request, x, y=0, z=0):
 	''' 인자: 정수 3개
     리턴값: URL에 입력한 값(정수 3개)을 더한 뒤 리턴하여 웹페이지에 출력한다.
@@ -157,6 +168,7 @@ def mysum(request, x, y=0, z=0):
 				http://192.168.0.17:8080/blog/sum/999/1/4
 	'''
 	return HttpResponse(int(x) + int(y) + int(z))
+
 
 def greet_korean(request, korean_name, age):
 	'''인자: 2개 (한글 이름, 나이)

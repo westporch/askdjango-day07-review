@@ -24,10 +24,12 @@ POST 방식
 <div class="container">
     <div class="row">
         <div class="col-sm-8 col-sm-offset-2">
-            <form action="" method="post">
+            <form action="" method="post" enctype="multipart/form-data">
 			<!--
 			<form action="" method="post">는 같은 주소로 post 방식으로 데이터를 쏜다는 의미이다.
 			action 항목에는 데이터를 쏠 위치를 지정한다. ""처럼 주소를 비워두면 현재 경로가 된다.
+
+			파일을 업로드하려면 enctype을 multipart/form-data로 설정해야 한다.
 			-->
                 {% csrf_token %}
     			<!--
