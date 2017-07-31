@@ -24,7 +24,7 @@ virtualenv v15.1.0
 
 ### Python 라이브러리 버전
 
-requirements.txt 참고
+[requirements.txt](https://github.com/westporch/askdjango-day07-review/blob/master/dev/askdjango/requirements.txt) 참고
 
 ### 사용 방법
 
