@@ -131,6 +131,9 @@ STATICFILES_DIRS = [
 ]
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
+MEDIA_URL = '/media/'   # 항상 마지막에 /를 붙여줘야 한다.
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
 ''' django-debug-toolbar에 접속할 호스트 설정
 --> settings.py에 INTERNAL_IPS를 설정하면 된다.
 (만약 INTERNAL_IPS를 설정하지 않으면 django-debug-toolbar는 보이지 않는다.)
