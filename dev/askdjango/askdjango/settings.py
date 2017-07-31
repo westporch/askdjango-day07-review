@@ -129,7 +129,7 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'askdjango', 'static')
 ]
-
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 ''' django-debug-toolbar에 접속할 호스트 설정
 --> settings.py에 INTERNAL_IPS를 설정하면 된다.
