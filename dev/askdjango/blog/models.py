@@ -76,6 +76,7 @@ class Post(models.Model):
     CharField는 길이 제한이 있는 문자열이다.
     DB는 길이 제한이 있는 문자열을 빠르게 잘 찾아낼 수 있다.
     '''
+    photo = models.ImageField() # ImageField()는 이미지만 저장할 수 있다.
     content = models.TextField(help_text='본문 내용을 입력해주세요.') # TextField는 길이 제한이 없는 문자열이다.
     created_at = models.DateTimeField(auto_now_add=True) # auto_now_add=True는 글을 포스팅할 때 '생성 시각'을 django가 자동으로 저장한다.
     updated_at = models.DateTimeField(auto_now=True) # auto_now=True는 글의 '갱신 시각'을 django가 자동으로 저장한다.
