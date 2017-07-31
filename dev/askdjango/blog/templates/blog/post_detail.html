@@ -7,6 +7,11 @@
 
 {% block content %}
 	<h1>{{ post.title }}</h1>
+
+    {% if post.photo %}
+        <img src="{{ post.photo.url }}"
+    {% endif %}
+
 	{{ post.content|linebreaks }}
 	<hr/>
 	<a href="{% url "blog:post_list" %}">목록으로</a> <!-- blog 앱의 뷰(post_list)를 지정해서 URL을 자동으로 계산한다. (Django를 유연하게 사용할 수 있음) -->
