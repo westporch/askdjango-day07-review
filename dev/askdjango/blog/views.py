@@ -4,6 +4,7 @@ from django.db.models import Q
 참고: https://docs.djangoproject.com/en/1.11/topics/db/queries/#complex-lookups-with-q-objects
 '''
 import os
+from django.contrib.auth.decorators import login_required
 from .models import Post
 from .forms import PostForm
 from django.http import HttpResponse, JsonResponse
@@ -41,6 +42,7 @@ def post_detail(request, pk):
 	})
 
 
+@login_required
 def post_new(request):
 	if request.method == 'POST':
 		'''
@@ -70,6 +72,7 @@ def post_new(request):
     })
 
 
+@login_required
 def post_edit(request, pk): # pk인자는 urls.py에서 받아온다, post_edit 함수는 post_new 함수와 유사하다.
     post = Post.objects.get(pk=pk) # 작성했던 글 대상을 불러온다, get은 1개의 대상만 가져온다.
 
@@ -86,6 +89,7 @@ def post_edit(request, pk): # pk인자는 urls.py에서 받아온다, post_edit 
     })
 
 
+@login_required
 def post_delete(request, pk):
     post = Post.objects.get(pk=pk) # 작성했던 글 대상을 불러온다, get은 1개의 대상만 가져온다.
     if request.method == 'POST':
