@@ -18,15 +18,14 @@ POST 방식
 {# bootstrap3 라이브러리 로드 #}
 {% load bootstrap3 %}
 
-{# bootstrap3 라이브러리를 통해 css/javascript 태그 출력 #}
-{% bootstrap_css %}
-{% bootstrap_javascript %}
-
-
 {% block content %}
     <form action="" method="post" enctype="multipart/form-data">
         {% csrf_token %}
         {% bootstrap_form form %}
-        <input type="submit" value="저장하기" class="btn btn-primary btn-block"/>
-        <a href="{{ form.instance.get_absolute_url }}" class="btn btn-default btn-block">내용으로</a>
+
+        <input type="submit" value="저장" class="btn btn-default btn-block"/>
+
+        {% if form.instance.pk %}
+            <a href="{{ form.instance.get_absolute_url }}" class="btn btn-default btn-block">내용으로</a>
+        {% endif %}
 {% endblock %}
