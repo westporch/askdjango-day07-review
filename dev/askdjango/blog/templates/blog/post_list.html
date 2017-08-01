@@ -13,7 +13,8 @@
 	    </form>
     </div>
 
-    <a href="{% url "blog:post_new" %}" class="btn btn-default">New Post</a>
+
+    <a href="{% url 'blog:post_new' %}" class="btn btn-default">새 글 작성</a>
 
     <table class="table table-hover table-bordered">
         {% for post in post_list %}
