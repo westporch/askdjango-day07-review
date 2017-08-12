@@ -35,6 +35,7 @@ urlpatterns = [
     url(r'^(?P<pk>\d+)/edit/$', views.post_edit, name='post_edit'), # URL 패턴이 일치할 경우 pk에 저장된 값을 post_edit 뷰에 넘겨준다, <pk>와 post_edit 뷰에서 사용하는 인자 이름(pk)은 항상 같아야한다.
     #url(r'^(?P<pk>\d+)/edit/$', views_cbv.post_edit, name='post_edit'), # blog/views_cbv.py 참고
     url(r'^(?P<pk>\d+)/delete/$', views.post_delete, name='post_delete'),
+    url(r'^(?P<pk>\d+)/comment/$', views.add_comment_to_post, name='add_comment_to_post'),
 	url(r'^$', views.post_list2),	# FBV 정의 (템플릿을 통해 HTML 형식 응답하기)
     url(r'^$', views.post_list1),	# FBV 정의 (문자열로 HTML 형식 응답하기)
     url(r'^$', views.excel_download), # FBV: 엑셀 다운로드 응답하기

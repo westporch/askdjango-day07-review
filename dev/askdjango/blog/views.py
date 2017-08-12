@@ -6,7 +6,7 @@ from django.db.models import Q
 import os
 from django.contrib.auth.decorators import login_required
 from .models import Post
-from .forms import PostForm
+from .forms import PostForm, CommentForm
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import redirect, render
 
@@ -174,3 +174,20 @@ def greet_korean(request, korean_name, age):
     사용법(예): http://192.168.0.17:8080/blog/hello/%EA%B3%B5%EC%9C%A0/37/
 	'''
 	return HttpResponse("안녕하세요. {korean_name}. {age}살이시네요.".format(korean_name=korean_name, age=int(age)))
+
+
+def add_comment_to_post(request, pk):
+	post = Post.objects.get(pk=pk)
+
+	if request.method == 'POST':
+		form = CommentForm(request.POST)
+		if form.is_valid():
+			comment = form.save(commit=False)
+			comment.post = post
+			comment.save()
+			return redirect('blog:post_detail', post.id)
+	else:
+		form = CommentForm()
+	return render(request, 'blog/post_form.html', {
+		'form': form,
+	})

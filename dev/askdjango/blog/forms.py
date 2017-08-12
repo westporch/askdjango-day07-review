@@ -1,5 +1,5 @@
 from django import forms
-from .models import Post
+from .models import Post, Comment
 
 '''
 class PostForm(forms.Form):
@@ -19,3 +19,9 @@ class PostForm(forms.ModelForm): # forms의 ModelForm을 상속받음.
         필드만 지정하면 정보를 알아서 다 가져온다.
         '''
         # fields = ['author', 'title', 'content']
+
+
+class CommentForm(forms.ModelForm):
+    class Meta:
+        model = Comment
+        fields = ['author', 'text']

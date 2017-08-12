@@ -13,6 +13,20 @@
     {% endif %}
 
 	{{ post.content|linebreaks }}
+
+    <hr>
+    <a class="btn btn-default" href="{% url 'blog:add_comment_to_post' pk=post.pk %}">댓글 작성</a>
+
+    {% for comment in post.comments.all %}
+        <div class="comment">
+            <div class="date">{{ comment.created_date }}</div>
+            <strong>{{ comment.author }}</strong>
+            <p>{{ comment.text|linebreaks }}</p>
+        </div>
+    {% empty %}
+        <p>작성된 댓글이 없습니다.</p>
+    {% endfor %}
+
 	<hr/>
 	<a href="{% url "blog:post_list" %}" class="btn btn-default">목록으로</a> <!-- blog 앱의 뷰(post_list)를 지정해서 URL을 자동으로 계산한다. (Django를 유연하게 사용할 수 있음) -->
     <a href="{% url "blog:post_edit" post.pk %}" class="btn btn-info">수정하기</a>
